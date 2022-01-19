@@ -11,7 +11,7 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Smarter-FUzzy</li>
                     </ol>
-                    <a href="<?php echo base_url() ?>welcome/tambahUsul" class="btn btn-primary btn-sm"> <i class="fas fa-plus-square"></i> Tambah Usul</a>
+
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -34,23 +34,21 @@
                                 </thead>
 
                                 <tbody>
-                                    <?php for ($i = 0; $i < $jml; $i++) { ?>
+                                    <?php foreach ($awal as $hasil) : ?>
                                         <tr>
-                                            <td><?php echo $nim[$i] ?></td>
-                                            <td><?php echo $nama[$i] ?></td>
-                                            <td><?php echo $ipk[$i] ?></td>
-                                            <td><?php echo $semester[$i] ?></td>
-                                            <td><?php echo $sks[$i] ?></td>
-                                            <td><?php echo $piagam[$i] ?></td>
-                                            <td><?php echo $sk[$i] ?></td>
-                                            <td><?php echo $penghasilan[$i] ?></td>
+                                            <td><?php echo $hasil->nim ?></td>
+                                            <td><?php echo $hasil->nama ?></td>
+                                            <td><?php echo $hasil->ipk ?></td>
+                                            <td><?php echo $hasil->semester ?></td>
+                                            <td><?php echo $hasil->sks ?></td>
+                                            <td><?php echo $hasil->piagam ?></td>
+                                            <td><?php echo $hasil->sk ?></td>
+                                            <td><?php echo $hasil->penghasilan_ortu ?></td>
+
                                         </tr>
-                                    <?php } ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
-
-                        </div>
-                        <div class="card-body">
                             <table id="datatablesSimple2">
                                 <thead>
                                     <tr>
@@ -75,8 +73,43 @@
                                             <td><?php echo $semester[$i] ?></td>
                                             <td><?php echo $sks[$i] ?></td>
                                             <td><?php echo $piagam[$i] ?></td>
-                                            <td><?php echo $sk[$i] ?></td>
-                                            <td><?php echo $penghasilan[$i] ?></td>
+                                            <td><?php echo round($sk[$i], 3) ?></td>
+                                            <td><?php echo round($penghasilan[$i], 3) ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple3">
+                                <thead>
+                                    <tr>
+                                        <th>NIM</th>
+                                        <th>Nama</th>
+                                        <th>IPK</th>
+                                        <th>Semester</th>
+                                        <th>SKS</th>
+                                        <th>Piagam</th>
+                                        <th>SK</th>
+                                        <th>Pengh. Ortu</th>
+                                        <th>Hasil</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php for ($i = 0; $i < $jml; $i++) { ?>
+                                        <tr>
+                                            <td><?php echo $nim[$i] ?></td>
+                                            <td><?php echo $nama[$i] ?></td>
+                                            <td><?php echo $ipk2[$i] ?></td>
+                                            <td><?php echo $semester2[$i] ?></td>
+                                            <td><?php echo $sks2[$i] ?></td>
+                                            <td><?php echo $piagam2[$i] ?></td>
+                                            <td><?php echo $sk2[$i] ?></td>
+                                            <td><?php echo $penghasilan2[$i] ?></td>
+                                            <td><?php echo $total[$i] ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

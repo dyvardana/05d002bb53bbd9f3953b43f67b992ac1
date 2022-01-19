@@ -44,7 +44,7 @@
                                             <td><?php echo $hasil->piagam ?></td>
                                             <td><?php echo $hasil->sk ?></td>
                                             <td><?php echo $hasil->penghasilan_ortu ?></td>
-                                            <td><i class="fas fa-pencil-alt"></i> | <i class="fas fa-trash"></i></td>
+                                            <td><i class="fas fa-pencil-alt"></i> | <a href="<?php echo base_url() . "welcome/hapusMhs/" . $hasil->nim; ?>"><i class="fas fa-trash"></i></a></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

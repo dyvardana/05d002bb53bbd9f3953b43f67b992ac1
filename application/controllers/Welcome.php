@@ -34,9 +34,15 @@ class Welcome extends CI_Controller
         $this->Mainmodel->addUsul($nim, $nama, $ipk, $smt, $sks, $piagam, $sk, $penghOrtu);
         redirect('welcome/index');
     }
+    function hapusMhs($nimMhs)
+    {
+        $this->Mainmodel->hapusMhs($nimMhs);
+        redirect("welcome/index");
+    }
     function smarter()
     {
         $mhs = $this->Mainmodel->getMhs();
+        $data['awal'] = $mhs;
         $jml = 0;
         foreach ($mhs as $hasil) {
             $data['nim'][] = $hasil->nim;
@@ -46,7 +52,7 @@ class Welcome extends CI_Controller
                 $data['ipk'][] = 0;
             } else if ($ipk > 2 && $ipk < 4) {
                 //	$uipk = ($ipk - 2) / 2;
-                $data['ipk'][] = ($ipk - 2) / 2;
+                $data['ipk'][] = round(($ipk - 2) / 2, 3);
             } else if ($ipk > 4) {
                 //	$uipk = 1;
                 $data['ipk'][] = 1;
@@ -93,7 +99,7 @@ class Welcome extends CI_Controller
             if ($penghasilan <= 300000) {
                 $data['penghasilan'][] = 1;
             } else if ($penghasilan > 300000 && $penghasilan < 10000000) {
-                $data['penghasilan'][] = round((10000000 - $penghasilan) / (10000000 - 300000), 3);
+                $data['penghasilan'][] = round(((10000000 - $penghasilan) / (10000000 - 300000)), 3);
             } else if ($penghasilan >= 10000000) {
                 $data['penghasilan'][] = 0;
             }
@@ -123,6 +129,48 @@ class Welcome extends CI_Controller
         /*    for($i=0;$i<=$jml;$i++){
             $data['']
         }*/
+
+        for ($i = 0; $i < $jml; $i++) {
+            //division by zero ipk
+            if (($data['ipk'][$i] - $minFuzzyIPK) != 0) {
+                $data['ipk2'][$i] = round(($data['ipk'][$i] - $minFuzzyIPK) / ($maxFuzzyIPK - $minFuzzyIPK), 3);
+            } else {
+                $data['ipk2'][$i] = 0;
+            }
+            //division by zero semester
+            if (($data['semester'][$i] - $minFuzzySEMESTER) != 0) {
+                $data['semester2'][$i] = round(($data['semester'][$i] - $minFuzzySEMESTER) / ($maxFuzzySEMESTER - $minFuzzySEMESTER), 3);
+            } else {
+                $data['semester2'][$i] = 0;
+            }
+            //division by zero sks
+            if (($data['sks'][$i] - $minFuzzyJMLSKS) != 0) {
+                $data['sks2'][$i] = round(($data['sks'][$i] - $minFuzzyJMLSKS) / ($maxFuzzyJMLSKS - $minFuzzyJMLSKS), 3);
+            } else {
+                $data['sks2'][$i] = 0;
+            }
+            //division by zero piagam
+            if (($data['piagam'][$i] - $minFuzzyPIAGAM) != 0) {
+                $data['piagam2'][$i] = round(($data['piagam'][$i] - $minFuzzyPIAGAM) / ($maxFuzzyPIAGAM - $minFuzzyPIAGAM), 3);
+            } else {
+                $data['piagam2'][$i] = 0;
+            }
+            //division by zero sk
+            if (($data['sk'][$i] - $minFuzzySK) != 0) {
+                $data['sk2'][$i] = round(($data['sk'][$i] - $minFuzzySK) / ($maxFuzzySK - $minFuzzySK), 3);
+            } else {
+                $data['sk2'][$i] = 0;
+            }
+            //division by zero penghasilan
+            if (($data['penghasilan'][$i] - $minFuzzyPENGHASILAN) != 0) {
+                $data['penghasilan2'][$i] = round(($data['penghasilan'][$i] - $minFuzzyPENGHASILAN) / ($maxFuzzyPENGHASILAN - $minFuzzyPENGHASILAN), 3);
+            } else {
+                $data['penghasilan2'][$i] = 0;
+            }
+
+            $data['total'][$i] = round($data['hasil'][$i] = ($data['ipk'][$i] * $bobotIPK) + ($data['semester'][$i] * $bobotSEMESTER) + ($data['sks'][$i] * $bobotSKS) + ($data['piagam'][$i] * $bobotPIAGAM) + ($data['sk'][$i] * $bobotSK) + ($data['penghasilan'][$i] * $bobotPENGHASILAN), 3);
+        }
+
         $this->load->view('smarter', $data);
     }
 }
